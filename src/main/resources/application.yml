@@ -1,0 +1,41 @@
+server:
+  port: 8082
+  shutdown: graceful
+
+spring:
+  application:
+    name: pedido-service
+  lifecycle:
+    timeout-per-shutdown-phase: 15s
+  mvc:
+    problemdetails:
+      enabled: true
+  cloud:
+    openfeign:
+          client:
+            config:
+              default:
+                connect-timeout: 2000     # 2s
+                read-timeout: 5000        # 5s
+                logger-level: basic
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,loggers,threaddump,httpexchanges
+  endpoint:
+    health:
+      show-details: when_authorized
+
+# URL do outro serviço (pode sobrescrever com a env NOTIFICACAO_URL)
+notificacao:
+  base-url: ${NOTIFICACAO_URL:http://localhost:8081}
+
+# OpenFeign (via Spring Cloud) — tempo de conexão/leitura e log básico
+
+# Nível de log para ver as chamadas Feign no console
+logging:
+  level:
+    io.junior.pedido.infra.NotificacaoClient: DEBUG
+    org.springframework.cloud.openfeign: INFO
