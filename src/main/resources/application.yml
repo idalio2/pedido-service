@@ -28,13 +28,9 @@ management:
     health:
       show-details: when_authorized
 
-# URL do outro serviço (pode sobrescrever com a env NOTIFICACAO_URL)
 notificacao:
   base-url: ${NOTIFICACAO_URL:http://localhost:8081}
 
-# OpenFeign (via Spring Cloud) — tempo de conexão/leitura e log básico
-
-# Nível de log para ver as chamadas Feign no console
 logging:
   level:
     io.junior.pedido.infra.NotificacaoClient: DEBUG
